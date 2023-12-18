@@ -15,7 +15,7 @@
  <!-- STICKY JS -->
  <script src="{{ asset('/') }}admin/assets/js/sticky.js"></script>
 
- 
+
  <!-- APEXCHART JS -->
  <script src="{{ asset('/') }}admin/assets/js/apexcharts.js"></script>
 
@@ -35,8 +35,8 @@
  <script src="{{ asset('/') }}admin/assets/js/reply.js"></script>
 
 
-<!-- SELECT2 JS -->
-<script src="{{ asset('/') }}admin/assets/plugins/select2/select2.full.min.js"></script>
+ <!-- SELECT2 JS -->
+ <script src="{{ asset('/') }}admin/assets/plugins/select2/select2.full.min.js"></script>
 
  <!-- COLOR THEME JS -->
  <script src="{{ asset('/') }}admin/assets/js/themeColors.js"></script>
@@ -57,63 +57,101 @@
 
 
  <!-- INTERNAL Summernote Editor js -->
-<script src="{{ asset('/') }}admin/assets/plugins/summernote-editor/summernote1.js"></script>
-<script src="{{ asset('/') }}admin/assets/js/summernote.js"></script>
-<!--Internal Fileuploads js-->
-<script src="{{ asset('/') }}admin/assets/plugins/fileuploads/js/fileupload.js"></script>
-<script src="{{ asset('/') }}admin/assets/plugins/fileuploads/js/file-upload.js"></script>
+ <script src="{{ asset('/') }}admin/assets/plugins/summernote-editor/summernote1.js"></script>
+ <script src="{{ asset('/') }}admin/assets/js/summernote.js"></script>
+ <!--Internal Fileuploads js-->
+ <script src="{{ asset('/') }}admin/assets/plugins/fileuploads/js/fileupload.js"></script>
+ <script src="{{ asset('/') }}admin/assets/plugins/fileuploads/js/file-upload.js"></script>
 
 
-<!--Internal Fancy uploader js-->
-<script src="{{ asset('/') }}admin/assets/plugins/fancyuploder/jquery.ui.widget.js"></script>
-<script src="{{ asset('/') }}admin/assets/plugins/fancyuploder/jquery.fileupload.js"></script>
-<script src="{{ asset('/') }}admin/assets/plugins/fancyuploder/jquery.iframe-transport.js"></script>
-<script src="{{ asset('/') }}admin/assets/plugins/fancyuploder/jquery.fancy-fileupload.js"></script>
-<script src="{{ asset('/') }}admin/assets/plugins/fancyuploder/fancy-uploader.js"></script>
-<!--FORM ELEMENTS JS -->
-<script src="{{ asset('/') }}admin/assets/js/formelementadvnced.js"></script>
+ <!--Internal Fancy uploader js-->
+ <script src="{{ asset('/') }}admin/assets/plugins/fancyuploder/jquery.ui.widget.js"></script>
+ <script src="{{ asset('/') }}admin/assets/plugins/fancyuploder/jquery.fileupload.js"></script>
+ <script src="{{ asset('/') }}admin/assets/plugins/fancyuploder/jquery.iframe-transport.js"></script>
+ <script src="{{ asset('/') }}admin/assets/plugins/fancyuploder/jquery.fancy-fileupload.js"></script>
+ <script src="{{ asset('/') }}admin/assets/plugins/fancyuploder/fancy-uploader.js"></script>
+ <!--FORM ELEMENTS JS -->
+ <script src="{{ asset('/') }}admin/assets/js/formelementadvnced.js"></script>
 
  <!-- CUSTOM JS -->
  <script src="{{ asset('/') }}admin/assets/js/custom.js"></script>
 
  <!-- SWITCHER JS -->
  <script src="{{ asset('/') }}admin/assets/switcher/js/switcher.js"></script>
-
+ <!-- Toster js  -->
+ <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js
+ "></script>
+ <!-- sweet alert 2 -->
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script>
-    function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+     $(document).on('click', '.delete-item', function() {
+         event.preventDefault();
+         Swal.fire({
+             title: "Are you sure?",
+             text: "You won't be able to revert this!",
+             icon: "warning",
+             showCancelButton: true,
+             confirmButtonColor: "#3085d6",
+             cancelButtonColor: "#d33",
+             confirmButtonText: "Yes, delete it!"
+         }).then((result) => {
+             if (result.isConfirmed) {
+                 document.getElementById("deleteItem").submit();
+             }
+         });
+     })
+ </script>
+ @if (session('message'))
+     <script>
+         toastr.success("{{ session('message') }}");
+     </script>
+ @endif
+ @if (session('error'))
+     <script>
+         toastr.error("{{ session('error') }}");
+     </script>
+ @endif
+ @if (session('update'))
+     <script>
+         toastr.warning("{{ session('update') }}");
+     </script>
+ @endif
+ <script>
+     function readURL(input) {
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
 
-        reader.onload = function (e) {
-            $('#categoryImage').attr('src', e.target.result);
-            $('#categoryImage').attr('height', '100');
-            $('#categoryImage').attr('width', '120');
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-$("#imgInp").change(function(){
-    readURL(this);
-});
+             reader.onload = function(e) {
+                 $('#categoryImage').attr('src', e.target.result);
+                 $('#categoryImage').attr('height', '100');
+                 $('#categoryImage').attr('width', '120');
+             }
+             reader.readAsDataURL(input.files[0]);
+         }
+     }
+     $("#imgInp").change(function() {
+         readURL(this);
+     });
  </script>
 
  <script>
-    function setSubCategory(id)
-    {
-        $.ajax({
-            type: "GET",
-            url: "{{route('get-sub-category-by-category')}}",
-            data:{id: id},
-            datatype: "JSON",
-            success: function(response){
-                var option = '';
-                option += '<option value="" disabled selected>--Select Sub Category--</option>';
-                $.each(response, function(key,value){
-                    option += '<option value="'+value.id+'">'+value.name+'</option>'
-                });
-                $('#subCategoryId').empty();
-                $('#subCategoryId').append(option);
-            }
-        });
-    }
+     function setSubCategory(id) {
+         $.ajax({
+             type: "GET",
+             url: "{{ route('get-sub-category-by-category') }}",
+             data: {
+                 id: id
+             },
+             datatype: "JSON",
+             success: function(response) {
+                 var option = '';
+                 option += '<option value="" disabled selected>--Select Sub Category--</option>';
+                 $.each(response, function(key, value) {
+                     option += '<option value="' + value.id + '">' + value.name + '</option>'
+                 });
+                 $('#subCategoryId').empty();
+                 $('#subCategoryId').append(option);
+             }
+         });
+     }
  </script>

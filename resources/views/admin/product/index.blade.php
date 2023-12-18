@@ -47,7 +47,10 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->code }}</td>
+                                @if($product->category != null)
                                 <td>{{ $product->category->name }}</td>
+                                    @endif
+                                
                                 <td>
                                     <img src="{{ asset($product->image) }}" alt="" style="height: 50px">
                                 </td>
@@ -61,20 +64,16 @@
                                     <a href="{{ route('product.edit',$product->id) }}" class="btn btn-sm btn-info me-2" >
                                     <i class="fa fa-edit"></i>
                                     </a>
-                                    <form action="{{ route('product.destroy',$product->id) }}" method="post" class="d-inline-flex">
+                                    <form action="{{ route('product.destroy',$product->id) }}" method="post" id="deleteItem" class="d-inline-flex">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-danger " >
+                                        <button type="submit" class="btn btn-sm btn-danger delete-item" >
                                             <i class="fa fa-trash"></i>
                                         </button>
                                 </form>
-
                                 </td>
                             </tr>
-
-
                         @endforeach
-
                         </tbody>
                     </table>
                 </div>

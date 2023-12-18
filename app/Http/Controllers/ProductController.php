@@ -98,7 +98,7 @@ class ProductController extends Controller
             ProductImage::updateProductImage($request->other_images,$product->id);
 
         }
-        return redirect('/product')->with('message','Product info Update Successfully.');
+        return redirect('/product')->with('update','Product info Update Successfully.');
 
 
     }
@@ -109,6 +109,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         Product::deleteProduct($product);
-        return back()->with('message','Product Info Deleted Successfully');
+        return back()->with('error','Product Info Deleted Successfully');
     }
 }

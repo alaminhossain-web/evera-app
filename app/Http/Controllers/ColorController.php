@@ -61,7 +61,7 @@ class ColorController extends Controller
     public function update(Request $request, Color $color)
     {
         Color::updateColor($request,$color);
-        return redirect('/color')->with('message','Color Updated Successfully');
+        return redirect('/color')->with('update','Color Updated Successfully');
     }
 
     /**
@@ -70,6 +70,6 @@ class ColorController extends Controller
     public function destroy(Color $color)
     {
         Color::deleteColor($color);
-        return back()->with('message','Color Deleted Successfully');
+        return back()->with('error','Color Deleted Successfully');
     }
 }

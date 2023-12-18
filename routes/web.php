@@ -12,6 +12,8 @@ use App\Http\Controllers\SizeController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomerAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +29,22 @@ use App\Http\Controllers\CartController;
 Route::get('/', [EvaraController::class, 'index'])->name('home');
 Route::get('/product-category/{id}', [EvaraController::class, 'category'])->name('product-category');
 Route::get('/product-detail/{id}', [EvaraController::class, 'product'])->name('product-detail');
-Route::resources(['carts'=>CartController::class]);
+Route::resources(['cart'=>CartController::class]);
+Route::get('/cart/delete-product/{rowId}', [CartController::class, 'delete'])->name('cart.delete');
+Route::post('/cart/update-product', [CartController::class, 'updateProduct'])->name('cart.update-product');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/new-order', [CheckoutController::class, 'newOrder'])->name('new-order');
+Route::get('/complete-order', [CheckoutController::class, 'completeOrder'])->name('complete-order');
+Route::get('/login-register', [CustomerAuthController::class, 'login'])->name('login-register');
+Route::post('/login-check', [CustomerAuthController::class, 'loginCheck'])->name('login-check');
+Route::post('/new-customer', [CustomerAuthController::class, 'newCustomer'])->name('new-customer');
+Route::get('/customer-logout', [CustomerAuthController::class, 'logout'])->name('customer-logout');
+Route::get('/my-dashboard', [CustomerAuthController::class, 'dashboard'])->name('customer.dashboard');
+
+
+
+
+
 
 Route::middleware([
     'auth:sanctum',

@@ -72,7 +72,7 @@ class SubCategoryController extends Controller
     public function update(Request $request, SubCategory $subCategory)
     {
         SubCategory::updateSubCategory($request,$subCategory->id);
-        return redirect('/sub-category')->with('message','Sub Category Info update Successfully');
+        return redirect('/sub-category')->with('update','Sub Category Info update Successfully');
     }
 
     /**
@@ -81,6 +81,6 @@ class SubCategoryController extends Controller
     public function destroy(SubCategory $subCategory)
     {
         SubCategory::deleteSubCategory($subCategory);
-        return back()->with('message','Sub Category Deleted Successfully');
+        return back()->with('error','Sub Category Deleted Successfully');
     }
 }

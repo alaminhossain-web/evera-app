@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <p class="text-success">{{ session()->get('message') }}</p>
+                            {{-- <p class="text-success">{{ session()->get('message') }}</p> --}}
                             <table id="example3" class="table table-bordered text-nowrap border-bottom">
                                 <thead>
                                     <tr>
@@ -51,10 +51,10 @@
                                             <a href="{{ route('size.edit',$size->id) }}" class="btn btn-sm btn-info" >
                                             <i class="fa fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('size.destroy',$size->id) }}" method="post" class="d-inline ms-2">
+                                            <form action="{{ route('size.destroy',$size->id) }}" method="post" id="deleteItem" class="d-inline ms-2">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" class="btn btn-sm btn-danger" >
+                                                <button type="submit" class="btn btn-sm btn-danger delete-item" >
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                         </form>   

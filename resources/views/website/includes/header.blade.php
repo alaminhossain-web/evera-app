@@ -192,7 +192,18 @@
                                     <li><a href="#"><img src="{{asset('/')}}website/assets/imgs/theme/flag-ru.png" alt="">Pусский</a></li>
                                 </ul>
                             </li>
-                            <li><i class="fi-rs-user"></i><a href="page-login-register.html">Log In / Sign Up</a></li>
+                            
+                            @if (Session::get('customer_id'))
+                            <li>
+                                <a class="language-dropdown-active" href="#"> <i class="fi-rs-user"></i> {{Session::get('customer_name')}} <i class="fi-rs-angle-small-down"></i></a>
+                                <ul class="language-dropdown">
+                                    <li><a href="{{ route('customer.dashboard')}}"><i class="fi-rs-home"></i>Dashboard</a></li>
+                                    <li><a href="{{ route('customer-logout')}}"><i class="fi-rs-lock"></i>Logout</a></li>
+                                </ul>
+                            </li>
+                            @else
+                            <li><i class="fi-rs-user"></i><a href="{{ route('login-register')}}">Log In / Sign Up</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -235,42 +246,34 @@
                             <div class="header-action-icon-2">
                                 <a class="mini-cart-icon" href="shop-cart.html">
                                     <img alt="Evara" src="{{asset('/')}}website/assets/imgs/theme/icons/icon-cart.svg">
-                                    <span class="pro-count blue">2</span>
+                                    <span class="pro-count blue">{{ count(Cart::content()) }}</span>
                                 </a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
+                                        @php($sum=0)
+                                        @foreach (Cart::content() as $cartItem)
                                         <li>
                                             <div class="shopping-cart-img">
-                                                <a href="shop-product-right.html"><img alt="Evara" src="{{asset('/')}}website/assets/imgs/shop/thumbnail-3.jpg"></a>
+                                                <a href=""><img alt="Evara" src="{{asset($cartItem->options->image)}}" style="height: 80px"></a>
                                             </div>
                                             <div class="shopping-cart-title">
-                                                <h4><a href="shop-product-right.html">Daisy Casual Bag</a></h4>
-                                                <h4><span>1 × </span>$800.00</h4>
+                                                <h4><a href="">{{ $cartItem->name }}</a></h4>
+                                                <h4><span>{{ $cartItem->qty }} × </span>${{ $cartItem->price }}.00</h4>
                                             </div>
                                             <div class="shopping-cart-delete">
                                                 <a href="#"><i class="fi-rs-cross-small"></i></a>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="shopping-cart-img">
-                                                <a href="shop-product-right.html"><img alt="Evara" src="{{asset('/')}}website/assets/imgs/shop/thumbnail-2.jpg"></a>
-                                            </div>
-                                            <div class="shopping-cart-title">
-                                                <h4><a href="shop-product-right.html">Corduroy Shirts</a></h4>
-                                                <h4><span>1 × </span>$3200.00</h4>
-                                            </div>
-                                            <div class="shopping-cart-delete">
-                                                <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                            </div>
-                                        </li>
+                                        @php($sum=$sum+$cartItem->subtotal)
+                                        @endforeach
                                     </ul>
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">
-                                            <h4>Total <span>$4000.00</span></h4>
+                                            <h4>Total <span>${{ $sum}}.00</span></h4>
                                         </div>
                                         <div class="shopping-cart-button">
-                                            <a href="shop-cart.html" class="outline">View cart</a>
-                                            <a href="shop-checkout.html">Checkout</a>
+                                            <a href="{{ route('cart.index')}}" class="outline">View cart</a>
+                                            <a href="{{ route('checkout')}}">Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -346,19 +349,12 @@
                     <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
                         <nav>
                             <ul>
-                                <li><a class="active" href="index-2.html">Home <i class="fi-rs-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index-2.html">Home 1</a></li>
-                                        <li><a href="index-3.html">Home 2</a></li>
-                                        <li><a href="index-4.html">Home 3</a></li>
-                                        <li><a href="index-5.html">Home 4</a></li>
-                                    </ul>
-                                </li>
+                                <li><a  href="{{ route('home')}}">Home </a></li>
                                 <li>
                                     <a href="page-about.html">About</a>
                                 </li>
                                 <li><a href="shop-grid-right.html">Shop <i class="fi-rs-angle-down"></i></a>
-                                    <ul class="sub-menu">
+                                    {{-- <ul class="sub-menu">
                                         <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
                                         <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
                                         <li><a href="shop-list-right.html">Shop List – Right Sidebar</a></li>
@@ -376,10 +372,10 @@
                                         <li><a href="shop-cart.html">Shop – Cart</a></li>
                                         <li><a href="shop-checkout.html">Shop – Checkout</a></li>
                                         <li><a href="shop-compare.html">Shop – Compare</a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li class="position-static"><a href="#">Mega menu <i class="fi-rs-angle-down"></i></a>
-                                    <ul class="mega-menu">
+                                    {{-- <ul class="mega-menu">
                                         <li class="sub-mega-menu sub-mega-menu-width-22">
                                             <a class="menu-title" href="#">Women's Fashion</a>
                                             <ul>
@@ -433,10 +429,10 @@
                                                 </div>
                                             </div>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li><a href="blog-category-grid.html">Blog <i class="fi-rs-angle-down"></i></a>
-                                    <ul class="sub-menu">
+                                    {{-- <ul class="sub-menu">
                                         <li><a href="blog-category-grid.html">Blog Category Grid</a></li>
                                         <li><a href="blog-category-list.html">Blog Category List</a></li>
                                         <li><a href="blog-category-big.html">Blog Category Big</a></li>
@@ -448,10 +444,10 @@
                                                 <li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
                                             </ul>
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
-                                    <ul class="sub-menu">
+                                    {{-- <ul class="sub-menu">
                                         <li><a href="page-about.html">About Us</a></li>
                                         <li><a href="page-contact.html">Contact</a></li>
                                         <li><a href="page-account.html">My Account</a></li>
@@ -460,7 +456,7 @@
                                         <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
                                         <li><a href="page-terms.html">Terms of Service</a></li>
                                         <li><a href="page-404.html">404 Page</a></li>
-                                    </ul>
+                                    </ul> --}}
                                 </li>
                                 <li>
                                     <a href="page-contact.html">Contact</a>

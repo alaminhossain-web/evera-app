@@ -112,7 +112,11 @@
                                 </div>
                                 <div class="product-content-wrap">
                                     <div class="product-category">
-                                        <a href="shop-grid-right.html">{{ $product->category->name }}</a>
+                                        @if($product->category != null)
+                                        <a href="shop-grid-right.html">{{
+                                                $product->category->name
+                                            }}</a>
+                                            @endif
                                     </div>
                                     <h2><a href="shop-product-right.html">{{ $product->name }}</a></h2>
                                     <div class="rating-result" title="90%">

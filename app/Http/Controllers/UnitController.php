@@ -57,7 +57,7 @@ class UnitController extends Controller
     public function update(Request $request, Unit $unit)
     {
         Unit::updateUnit($request,$unit);
-        return redirect('/unit')->with('message','Unit updated successfully.');
+        return redirect('/unit')->with('update','Unit updated successfully.');
     }
 
     /**        
@@ -67,6 +67,6 @@ class UnitController extends Controller
     public function destroy(Unit $unit)
     {
         Unit::deleteUnit($unit);
-        return back()->with('message','Unit Deleted Successfully');
+        return back()->with('error','Unit Deleted Successfully');
     }
 }

@@ -25,7 +25,7 @@
                 <h3 class="card-title">Edit Sub Category Form</h3>
             </div>
             <div class="card-body">
-                <p class="text-success">{{ session()->get('message') }}</p>
+                {{-- <p class="text-success">{{ session()->get('message') }}</p> --}}
                 <form action="{{ route('sub-category.store') }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf

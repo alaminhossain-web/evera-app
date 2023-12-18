@@ -24,7 +24,7 @@
                 <h3 class="card-title">Edit Category Form</h3>
             </div>
             <div class="card-body">
-                <p class="text-muted"></p>
+                {{-- <p class="text-muted"></p> --}}
                 <form action="{{ route('category.update',$category->id) }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf

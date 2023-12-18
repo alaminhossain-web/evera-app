@@ -16,3 +16,5 @@
 <!-- INTERNAL Switcher css -->
 <link href="{{ asset('/') }}admin/assets/switcher/css/switcher.css" rel="stylesheet">
 <link href="{{ asset('/') }}admin/assets/switcher/demo.css" rel="stylesheet">
+<!-- toster css -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

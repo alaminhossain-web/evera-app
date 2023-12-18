@@ -25,7 +25,7 @@
                 <h3 class="card-title">Manage Sub Category Form</h3>
             </div>
             <div class="card-body">
-                <p class="badge bg-danger">{{ session()->get('message') }}</p>
+                {{-- <p class="badge bg-danger">{{ session()->get('message') }}</p> --}}
                 <div class="table-responsive">
                     <table id="example3" class="table table-bordered text-nowrap border-bottom">
                         <thead>
@@ -55,10 +55,10 @@
                                     <a href="{{ route('sub-category.edit',$sub_category->id) }}" class="btn btn-sm btn-info" >
                                     <i class="fa fa-edit"></i>
                                     </a>
-                                    <form action="{{ route('sub-category.destroy',$sub_category->id) }}" method="post" class="d-inline ms-2">
+                                    <form action="{{ route('sub-category.destroy',$sub_category->id) }}" method="post" id="deleteItem" class="d-inline ms-2">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete?')">
+                                        <button type="submit" class="btn btn-sm btn-danger  delete-item">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                 </form>

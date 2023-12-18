@@ -63,7 +63,7 @@ class OfferController extends Controller
     public function update(Request $request, Offer $offer)
     {
         Offer::updateOffer($request,$offer);
-        return redirect('/offer')->with('message','Offer Updated Successfully');
+        return redirect('/offer')->with('update','Offer Updated Successfully');
     }
 
     /**
@@ -72,6 +72,6 @@ class OfferController extends Controller
     public function destroy(Offer $offer)
     {
         Offer::deleteOffer($offer);
-        return back()->with('message','Offer Deleted Successfully');
+        return back()->with('error','Offer Deleted Successfully');
     }
 }

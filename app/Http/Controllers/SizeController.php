@@ -31,7 +31,7 @@ class SizeController extends Controller
     public function store(Request $request)
     {
         Size::newSize($request);
-        return back()->with('message','Unit Created Successfully');
+        return back()->with('message','Size Created Successfully');
     }
 
     /**
@@ -58,7 +58,7 @@ class SizeController extends Controller
     public function update(Request $request, Size $size)
     {
         Size::updateSize($request,$size);
-        return redirect('/size')->with('message','Unit Created Successfully');
+        return redirect('/size')->with('update','Size Updated Successfully');
     }
 
     /**
@@ -67,6 +67,6 @@ class SizeController extends Controller
     public function destroy(Size $size)
     {
         Size::deleteSize($size);
-        return back()->with('message','Size Delete Successfully');
+        return back()->with('error','Size Delete Successfully');
     }
 }

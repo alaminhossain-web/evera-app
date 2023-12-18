@@ -58,7 +58,7 @@ class BrandController extends Controller
     public function update(Request $request, Brand $brand)
     {
         Brand::updateBrand($request,$brand);
-        return redirect('/brand')->with('message','Brand updated successfully.');
+        return redirect('/brand')->with('update','Brand updated successfully.');
     }
 
     /**
@@ -67,6 +67,6 @@ class BrandController extends Controller
     public function destroy(Brand $brand)
     {
         Brand::deleteBrand($brand);
-        return back()->with('message','Brand Deleted Successfully');
+        return back()->with('error','Brand Deleted Successfully');
     }
 }

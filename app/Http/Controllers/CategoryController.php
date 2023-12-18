@@ -59,7 +59,7 @@ class CategoryController extends Controller
     public function update(Request $request, String $id)
     {
         Category::saveCategories($request,$id);
-        return redirect()->route('category.index')->with('message', 'Blog updated successfully.');
+        return redirect()->route('category.index')->with('update', 'Category updated successfully.');
     }
 
     /**
@@ -73,6 +73,6 @@ class CategoryController extends Controller
             unlink($category->image);
         }
         $category-> delete();
-        return back()->with('message','Category Deleted Successfully');
+        return back()->with('error','Category Deleted Successfully');
     }
 }

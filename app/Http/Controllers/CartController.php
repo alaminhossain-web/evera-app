@@ -14,6 +14,7 @@ class CartController extends Controller
      */
     public function index()
     {
+       
         return view('website.cart.index',[
             'products' => Cart::content()
         ]);
@@ -32,22 +33,23 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-
+        
         self::$product = Product::find($request->id);
         Cart::add([
-            'id' => $request->id,
-            'name' => self::$product->name,
-            'qty' => 1,
-            'price' => self::$product->selling_price,
-            'options' =>
+            'id'        => $request->id,
+            'name'      => self::$product->name,
+            'qty'       => $request->qty,
+            'price'     => self::$product->selling_price,
+            'options'   =>
                 [
-                    'image' => self::$product->image,
-                    'code' => self::$product->code,
-                    'size' => $request->size,
-                    'color' => $request->color,
+                    'image'     => self::$product->image,
+                    'code'      => self::$product->code,
+                    'size'      => $request->size,
+                    'color'     => $request->color,
                 ]
         ]);
-        return redirect(route('carts.index'))->with('message','Add to Cart Successfully');
+        
+         return redirect('/cart')->with('message','Add to Cart Successfully');
     }
 
     /**
@@ -71,7 +73,7 @@ class CartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return $request;
     }
 
     /**
@@ -79,6 +81,20 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Cart::remove($id);
+        return back()->with('error','Cart product remove successfully.');
+    }
+    public function delete(string $rowId)
+    {
+        Cart::remove($rowId);
+        return back()->with('error','Cart product remove successfully.');
+    }
+    public function updateProduct(Request $request)
+    {
+        foreach($request->data as $item)
+        {
+            Cart::update($item['rowId'], $item['qty']);
+        }
+        return redirect('/cart')->with('message','Cart product Updated successfully.');
     }
 }

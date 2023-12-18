@@ -1,4 +1,5 @@
 @extends('website.master')
+@section('title', 'Shopping Cart')
 
 
 @section('body')
@@ -16,54 +17,77 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
+                        <form action="{{ route('cart.update-product') }}" method="post">
+                            @csrf
                         <div class="table-responsive">
+                            @if (session('message'))
+                            <p class="text-success">{{ session('message') }}</p>
+                            @endif
+                            @if (session('error'))
+                            <p class="text-danger">{{ session('error') }}</p>
+                            @endif
                             <table class="table shopping-summery text-center clean">
                                 <thead>
-                                <tr class="main-heading">
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Subtotal</th>
-                                    <th scope="col">Remove</th>
-                                </tr>
+                                    <tr class="main-heading">
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Subtotal</th>
+                                        <th scope="col">Remove</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($products as $product)
-                                <tr>
-                                    <td class="image product-thumbnail"><img src="{{ asset($product->options->image) }}" alt="#"></td>
-                                    <td class="product-des product-name">
-                                        <h5 class="product-name"><a href="shop-product-right.html">{{ $product->name }}</a></h5>
-                                        <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus.
-                                        </p>
-                                    </td>
-                                    <td class="price" data-title="Price"><span>${{ $product->price }}.00 </span></td>
-                                    <td class="text-center" data-title="Stock">
-                                        <div class="detail-qty border radius  m-auto">
-                                            <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                            <span class="qty-val">{{ $product->qty }}</span>
-                                            <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
-                                        </div>
-                                    </td>
-                                    <td class="text-right" data-title="Cart">
-                                        <span>$65.00 </span>
-                                    </td>
-                                    <td class="action" data-title="Remove"><a href="#" class="text-muted"><i class="fi-rs-trash"></i></a></td>
-                                </tr>
-                                @endforeach
+                                    @php($sum=0)
+                                    @foreach ($products as $key=>$product)
+                                        <tr>
+                                            <td class="image product-thumbnail"><img
+                                                    src="{{ asset($product->options->image) }}" alt="#" style="height: 100px"></td>
+                                            <td class="product-des product-name">
+                                                <h5 class="product-name"><a
+                                                        href="{{ route('product-detail', ['id' => $product->id]) }}"
+                                                        target="_blank">{{ $product->name }}</a></h5>
+                                                <p class="font-xs">
+                                                    <span class="fw-bold">Color : </span>{{ $product->options->color }}
+                                                    <br />
+                                                    <span class="fw-bold">Size : </span>{{ $product->options->size }} <br />
+                                                </p>
+                                            </td>
+                                            <td class="price" data-title="Price"><span>${{ $product->price }}.00 </span>
+                                            </td>
+                                            <td class="text-center" data-title="Stock">
+                                                <div class="w-50 m-auto">
+                                                    <input type="number" name="data[{{$key}}][qty]" class="form-control-sm" min="1" value="{{ $product->qty }}" />
+                                                    <input type="hidden" name="data[{{$key}}][rowId]" class="form-control" value="{{ $product->rowId }}" />
+                                                </div>
+                                            </td>
+                                            
+                                            <td class="text-right" data-title="Cart">
+                                                <span>${{ $product->subtotal }} </span>
+                                            </td>
+                                            <td class="action" data-title="Remove">
+                                                <a href="{{ route('cart.delete',['rowId' => $product->rowId] ) }}" class="btn bg-danger border-0 btn-sm " onclick="return confirm('Are you sure to delete this??')">
+                                                    <i class="fi-rs-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @php($sum = $sum + $product->subtotal)
+                                    @endforeach
 
-                                <tr>
-                                    <td colspan="6" class="text-end">
-                                        <a href="#" class="text-muted"> <i class="fi-rs-cross-small"></i> Clear Cart</a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="6" class="text-end">
+                                            <a href="#" class="text-muted"> <i class="fi-rs-cross-small"></i> Clear
+                                                Cart</a>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="cart-action text-end">
-                            <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</a>
+                            <button type="submit" class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</button>
                             <a class="btn "><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
                         </div>
+                        </form>
                         <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
                         <div class="row mb-50">
                             <div class="col-lg-6 col-md-12">
@@ -327,10 +351,12 @@
                                     </div>
                                     <div class="form-row row">
                                         <div class="form-group col-lg-6">
-                                            <input required="required" placeholder="State / Country" name="name" type="text">
+                                            <input required="required" placeholder="State / Country" name="name"
+                                                type="text">
                                         </div>
                                         <div class="form-group col-lg-6">
-                                            <input required="required" placeholder="PostCode / ZIP" name="name" type="text">
+                                            <input required="required" placeholder="PostCode / ZIP" name="name"
+                                                type="text">
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -349,10 +375,12 @@
                                                 <form action="#" target="_blank">
                                                     <div class="form-row row justify-content-center">
                                                         <div class="form-group col-lg-6">
-                                                            <input class="font-medium" name="Coupon" placeholder="Enter Your Coupon">
+                                                            <input class="font-medium" name="Coupon"
+                                                                placeholder="Enter Your Coupon">
                                                         </div>
                                                         <div class="form-group col-lg-6">
-                                                            <button class="btn  btn-sm"><i class="fi-rs-label mr-10"></i>Apply</button>
+                                                            <button class="btn  btn-sm"><i
+                                                                    class="fi-rs-label mr-10"></i>Apply</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -369,22 +397,37 @@
                                     <div class="table-responsive">
                                         <table class="table">
                                             <tbody>
-                                            <tr>
-                                                <td class="cart_total_label">Cart Subtotal</td>
-                                                <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">$240.00</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cart_total_label">Shipping</td>
-                                                <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> Free Shipping</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cart_total_label">Total</td>
-                                                <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">$240.00</span></strong></td>
-                                            </tr>
+                                                <tr>
+                                                    <td class="cart_total_label">Cart Subtotal</td>
+                                                    <td class="cart_total_amount"><span
+                                                            class="font-lg fw-900 text-brand">${{$sum}}.00</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cart_total_label">Tax Amount(15%)</td>
+                                                    <td class="cart_total_amount"><span
+                                                            class="font-lg fw-900 text-brand">${{$tax = round($sum * 0.15)}}</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cart_total_label">Shipping</td>
+                                                    <td class="cart_total_amount">
+                                                         <i class="ti-gift mr-5"></i>
+                                                         Shipping Cost : {{ $shippingCost = 100}}
+                                                         {{-- <label><input type="checkbox" name="shipping_cost" value="60">Inside City($60)</label>
+                                                         <label><input type="checkbox" name="shipping_cost" value="120">Outside City($120)</label> --}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cart_total_label">Total</td>
+                                                    <td class="cart_total_amount">
+                                                        <strong><span
+                                                                class="font-xl fw-900 text-brand">${{$sum+$tax+$shippingCost}}.00</span></strong>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <a href="#" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                    <a href="{{ route('checkout')}}" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceed To
+                                        CheckOut</a>
                                 </div>
                             </div>
                         </div>

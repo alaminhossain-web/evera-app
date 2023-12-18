@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 
 class EvaraController extends Controller
 {
+    private $product;
+
     public function index()
     {
         return view('website.home.index',[
@@ -29,8 +31,10 @@ class EvaraController extends Controller
 
     public function product($id)
     {
+        $this->product = Product::find($id);
         return view('website.product.index',[
-            'product'=> Product::find($id)
+            'product'=> Product::find($id),
+            'category_products' =>Product::where('category_id',$this->product->category_id)->orderBy('id','desc')->take(4)->get(['id','name','image','selling_price','regular_price'])
         ]);
     }
 }
