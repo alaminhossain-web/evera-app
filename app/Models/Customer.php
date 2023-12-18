@@ -11,15 +11,25 @@ class Customer extends Model
 
     private static $customer,$image, $imageName,$extension, $directory,$imageUrl;
 
-    public function newCustomer($request)
+    public static function newCustomer($request)
     {
-            self::$customer = new Customer;
+            self::$customer = new Customer();
             self::$customer->name = $request->name;
             self::$customer->email = $request->email;
             self::$customer->mobile = $request->mobile;
-            self::$customer->password = bcrypt($request->mobile);
+            if($request->password)
+            {
+                self::$customer->password = bcrypt($request->password);
+
+            }
+            else
+            {
+                self::$customer->password = bcrypt($request->mobile);
+
+            }
             self::$customer->save();
 
             return self::$customer;
     }
+
 }

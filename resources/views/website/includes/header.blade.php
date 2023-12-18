@@ -1,4 +1,4 @@
-@if(\Request::route()->getName() == 'home')
+{{-- @if(\Request::route()->getName() == 'home')
 <!-- Modal -->
 <div class="modal fade custom-modal" id="onloadModal" tabindex="-1" aria-labelledby="onloadModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -24,7 +24,7 @@
         </div>
     </div>
 </div>
-@endif
+@endif --}}
 
 <!-- Quick view -->
 <div class="modal fade custom-modal" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
@@ -238,9 +238,9 @@
                     <div class="header-action-right">
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
-                                <a href="shop-wishlist.html">
+                                <a href="{{ route('wishlist.index')}}">
                                     <img class="svgInject" alt="Evara" src="{{asset('/')}}website/assets/imgs/theme/icons/icon-heart.svg">
-                                    <span class="pro-count blue">4</span>
+                                    {{-- <span class="pro-count blue">4</span> --}}
                                 </a>
                             </div>
                             <div class="header-action-icon-2">

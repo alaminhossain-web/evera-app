@@ -37,23 +37,17 @@ class CustomerAuthController extends Controller
         }
 
     }
-    public function register(Request $request)
-    {
-        return $request;
-    }
+    
     public function newCustomer(Request $request)
     {
-        $this->customer  = new Customer();
-        $this->customer->name       = $request->name;
-        $this->customer->email      = $request->email;
-        $this->customer->mobile     = $request->mobile;
-        $this->customer->password   = bcrypt($request->password);
-        $this->customer->save();
-
-        return redirect('/login-register')->with('message','Your Registation Successfully.Please Login to Shopping...');
+        $this->customer = Customer::newCustomer($request);
+        Session::put('customer_id',$this->customer->id);
+        Session::put('customer_name',$this->customer->name);
+        return redirect('/my-dashboard');
+        //return redirect('/login-register')->with('message','Your Registration Successfully.Please Login for Shopping...');
 
     }
-    public function logout()
+    public function  logout()
     {
         Session::forget('customer_id');
         Session::forget('customer_name');

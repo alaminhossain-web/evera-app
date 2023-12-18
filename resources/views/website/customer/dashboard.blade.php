@@ -37,7 +37,7 @@
                                     <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="page-login-register.html"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                    <a class="nav-link" href="{{route('customer-logout')}}"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
                                 </li>
                             </ul>
                         </div>
@@ -47,7 +47,7 @@
                             <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5 class="mb-0">Hello Rosie! </h5>
+                                        <h5 class="mb-0">Hello {{ Session::get('customer_name') }} ! </h5>
                                     </div>
                                     <div class="card-body">
                                         <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a href="#">edit your password and account details.</a></p>

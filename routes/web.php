@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerAuthController;
+use App\Http\Controllers\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::post('/login-check', [CustomerAuthController::class, 'loginCheck'])->name
 Route::post('/new-customer', [CustomerAuthController::class, 'newCustomer'])->name('new-customer');
 Route::get('/customer-logout', [CustomerAuthController::class, 'logout'])->name('customer-logout');
 Route::get('/my-dashboard', [CustomerAuthController::class, 'dashboard'])->name('customer.dashboard');
+Route::resource('wishlist',WishlistController::class);
 
 
 

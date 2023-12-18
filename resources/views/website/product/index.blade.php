@@ -16,8 +16,11 @@
     </div>
     <section class="mt-50 mb-50">
         <div class="container">
+
             <div class="row">
+
                 <div class="col-lg-12">
+                    <p class="text-primary text-bold">{{session('message')}}</p>
                     
                         <div class="product-detail accordion-detail">
                             <div class="row mb-50">
@@ -44,6 +47,7 @@
                                     <!-- End Gallery -->
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12">
+                                    
                                 <form action="{{ route('cart.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $product->id }}">
@@ -102,7 +106,7 @@
                                                 <button type="submit" class="button button-add-to-cart">Add to
                                                     cart</button>
                                                 <a aria-label="Add To Wishlist" class="action-btn hover-up"
-                                                    href=""><i class="fi-rs-heart"></i></a>
+                                                    href="{{route('wishlist.create',['id' => $product->id])}}"><i class="fi-rs-heart"></i></a>
                                                 <a aria-label="Compare" class="action-btn hover-up"
                                                     href=""><i class="fi-rs-shuffle"></i></a>
                                             </div>

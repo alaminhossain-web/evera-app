@@ -16,6 +16,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 m-auto">
+                @if(session('redirect'))
+                {
+                    <p class="text-center text-danger">{{session('redirect')}}</p>
+                }
+                @endif
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">

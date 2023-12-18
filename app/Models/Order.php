@@ -12,7 +12,7 @@ class Order extends Model
     private static $order;
     public static function newOrder($customer,$request)
     {
-        self::$order = new Order;
+        self::$order = new Order();
         self::$order->customer_id       = $customer->id;
         self::$order->order_total       = $request->order_total;
         self::$order->tax_total         = $request->tax_total;
@@ -22,5 +22,6 @@ class Order extends Model
         self::$order->delivery_address  = $request->delivery_address;
         self::$order->payment_method    = $request->payment_method;
         self::$order->save();
+        return self::$order;
     }
 }
