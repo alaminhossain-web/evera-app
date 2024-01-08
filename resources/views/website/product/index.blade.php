@@ -106,7 +106,7 @@
                                                 <button type="submit" class="button button-add-to-cart">Add to
                                                     cart</button>
                                                 <a aria-label="Add To Wishlist" class="action-btn hover-up"
-                                                    href="{{route('wishlist.create',['id' => $product->id])}}"><i class="fi-rs-heart"></i></a>
+                                                    href="{{route('add.wishlist',['id'=>$product->id])}}"><i class="fi-rs-heart"></i></a>
                                                 <a aria-label="Compare" class="action-btn hover-up"
                                                     href=""><i class="fi-rs-shuffle"></i></a>
                                             </div>

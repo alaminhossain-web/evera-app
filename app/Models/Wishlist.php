@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Wishlist extends Model
 {
     use HasFactory;
+    protected $guarded=[];
     private static $wishlist;
+
     public static function newWishlist($customer,$request)
     {
         
@@ -18,17 +20,17 @@ class Wishlist extends Model
         self::$wishlist->product_id           = $request->id;
         self::$wishlist->date                 = date('y-m-d');
         self::$wishlist->timestamp            = strtotime(date('y-m-d'));
-        self::$wishlist->status               = $request->status;
+        self::$wishlist->status               = $customer->status;
         self::$wishlist->save();
-        return self::$wishlist->product_id;
+        return self::$wishlist;
         
     }
     public static function deleteWishlist($wishlist)
     {
         $wishlist->delete();
     }
-   public function product()
-   {
-    return $this->belongsTo(Product::class);
-   }
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -15,10 +15,31 @@ class WishlistController extends Controller
      */
     public function index()
     {    
+        
         $this->wishlist= Wishlist::where('customer_id',Session::get('customer_id'))->get();
         return view('website.wishlist.index',[
             'products' => $this->wishlist
+            
         ]);
+    }
+    public function add(Request $request)
+    {
+        if(Session::get('customer_id'))
+        {
+           $this->customer = Customer::find(Session::get('customer_id'));
+           $this->wishlist= Wishlist::where('customer_id',Session::get('customer_id'))->where('product_id',$request->id)->first();
+            if($this->wishlist)
+                {
+                    return back()->with('message','Already Added ...');
+                }
+            Wishlist::newWishlist($this->customer,$request);
+            return redirect('/wishlist')->with('message',' Successfully Add..');
+        }
+        else
+        {
+            return redirect()->route('login-register')->with('redirect','Please Login or Register to active this feature...');
+
+        } 
     }
 
     /**
@@ -26,22 +47,7 @@ class WishlistController extends Controller
      */
     public function create(Request $request)
     {
-        if(Session::get('customer_id'))
-        {
-           $this->customer = Customer::find(Session::get('customer_id'));
-        }
-        else
-        {
-            return redirect()->route('login-register')->with('redirect','Please Login or Register to active this feature...');
-
-        }
-        $this->wishlist= Wishlist::where('customer_id',Session::get('customer_id'))->where('product_id',$request->id)->first();
-        if($this->wishlist)
-        {
-        return back()->with('message','Already Added ...');
-    }
-        Wishlist::newWishlist($this->customer,$request);
-        return redirect('/wishlist')->with('message',' Successfully Add..');
+        //
     }
 
     /**
@@ -55,9 +61,9 @@ class WishlistController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Wishlist $wishlist)
+    public function show(Request $request, Wishlist $wishlist)
     {
-        //
+        
     }
 
     /**
@@ -73,7 +79,7 @@ class WishlistController extends Controller
      */
     public function update(Request $request, Wishlist $wishlist)
     {
-        //
+       
     }
 
     /**

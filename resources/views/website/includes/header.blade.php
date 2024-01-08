@@ -240,7 +240,7 @@
                             <div class="header-action-icon-2">
                                 <a href="{{ route('wishlist.index')}}">
                                     <img class="svgInject" alt="Evara" src="{{asset('/')}}website/assets/imgs/theme/icons/icon-heart.svg">
-                                    {{-- <span class="pro-count blue">4</span> --}}
+                                    <span class="pro-count blue">{{count($wishlist)}}</span>
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
