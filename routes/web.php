@@ -29,6 +29,7 @@ use App\Http\Controllers\WishlistController;
 
 Route::get('/', [EvaraController::class, 'index'])->name('home');
 Route::get('/product-category/{id}', [EvaraController::class, 'category'])->name('product-category');
+Route::get('/product-sub-category/{id}', [EvaraController::class, 'subCategory'])->name('product-sub-category');
 Route::get('/product-detail/{id}', [EvaraController::class, 'product'])->name('product-detail');
 
 Route::resources(['cart'=>CartController::class]);
@@ -42,11 +43,12 @@ Route::get('/login-register', [CustomerAuthController::class, 'login'])->name('l
 Route::post('/login-check', [CustomerAuthController::class, 'loginCheck'])->name('login-check');
 Route::post('/new-customer', [CustomerAuthController::class, 'newCustomer'])->name('new-customer');
 Route::get('/customer-logout', [CustomerAuthController::class, 'logout'])->name('customer-logout');
-Route::get('/my-dashboard', [CustomerAuthController::class, 'dashboard'])->name('customer.dashboard');
 Route::resource('wishlist',WishlistController::class);
 Route::get('/add-wishlist/{id}',[WishlistController::class,'add'])->name('add.wishlist');
 
-
+Route::middleware(['customer'])->group(function(){
+    Route::get('/my-dashboard', [CustomerAuthController::class, 'dashboard'])->name('customer.dashboard');
+});
 
 
 

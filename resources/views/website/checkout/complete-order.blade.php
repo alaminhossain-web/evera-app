@@ -25,7 +25,7 @@
         </figure>
         <div class="mb-5">
           <h1 class="h3 font-weight-medium">Your order is completed!</h1>
-          <p class="text-center text-success">{{ session('message')}}</p>
+          <p class="text-center text-success">{{ session('success')}}</p>
           <p>Thank you for your order! Your order is being processed and will be completed within 3-6 hours. You will receive an email confirmation when your order is completed.</p>
         </div>
         <a class="btn btn-primary btn-pill transition-3d-hover px-5" href="classic.html">Continue Shopping</a>

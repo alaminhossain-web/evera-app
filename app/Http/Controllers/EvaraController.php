@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Offer;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class EvaraController extends Controller
@@ -24,6 +25,15 @@ class EvaraController extends Controller
         return view('website.category.index',[
             'category' => Category::find($id),
             'products'=> Product::where('category_id',$id)->orderBy('id','desc')->get(['id','name','image','regular_price','selling_price']),
+            
+
+        ]);
+    }
+    public function subCategory($id)
+    {
+        return view('website.category.index',[
+            'subCategory' => SubCategory::find($id),
+            'products'=> Product::where('sub_category_id',$id)->orderBy('id','desc')->get(['id','name','image','regular_price','selling_price']),
             
 
         ]);

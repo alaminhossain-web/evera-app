@@ -57,7 +57,7 @@
                                             <form action="{{ route('brand.destroy',$brand->id) }}" method="post" class="d-inline-flex">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" id="liveAlertPlaceholder" class="btn btn-sm btn-danger" >
+                                                <button type="submit" id="liveAlertPlaceholder" class="btn btn-sm btn-danger delete-item" >
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                         </form>   

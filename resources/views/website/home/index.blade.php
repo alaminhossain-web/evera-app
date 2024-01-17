@@ -13,7 +13,7 @@
                                 <h2 class="animated fw-900">{{ $offer->title_two }}</h2>
                                 <h1 class="animated fw-900 text-brand">{{ $offer->title_three }}</h1>
                                 <p class="animated">{{ $offer->description }}</p>
-                                <a class="animated btn btn-brush btn-brush-3" href="shop-product-right.html"> Shop Now </a>
+                                <a class="animated btn btn-brush btn-brush-3" href="{{route('product-detail',$offer->product->id)}}"> Shop Now </a>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-6">
@@ -103,7 +103,7 @@
                                     </div>
                                     <div class="product-action-1">
                                         <a aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                        <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                                        <a aria-label="Add To Wishlist" class="action-btn hover-up" href="{{route('add.wishlist',$product->id)}}"><i class="fi-rs-heart"></i></a>
                                         <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
                                     </div>
                                     <div class="product-badges product-badges-position product-badges-mrg">
@@ -112,13 +112,13 @@
                                 </div>
                                 <div class="product-content-wrap">
                                     <div class="product-category">
-                                        @if($product->category != null)
-                                        <a href="shop-grid-right.html">{{
+                                        {{-- @if($product->category != null) --}}
+                                        <a href="{{ route('product-category',$product->category->id) }}">{{
                                                 $product->category->name
                                             }}</a>
-                                            @endif
+                                            {{-- @endif --}}
                                     </div>
-                                    <h2><a href="shop-product-right.html">{{ $product->name }}</a></h2>
+                                    <h2><a href="{{route('product-detail',$product->id)}}">{{ $product->name }}</a></h2>
                                     <div class="rating-result" title="90%">
                                             <span>
                                                 <span>90%</span>

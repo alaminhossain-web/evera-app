@@ -20,12 +20,12 @@
                         <form action="{{ route('cart.update-product') }}" method="post">
                             @csrf
                         <div class="table-responsive">
-                            @if (session('message'))
+                            {{-- @if (session('message'))
                             <p class="text-success">{{ session('message') }}</p>
                             @endif
                             @if (session('error'))
                             <p class="text-danger">{{ session('error') }}</p>
-                            @endif
+                            @endif --}}
                             <table class="table shopping-summery text-center clean">
                                 <thead>
                                     <tr class="main-heading">

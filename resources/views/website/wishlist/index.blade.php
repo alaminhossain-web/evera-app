@@ -47,10 +47,10 @@
                                     </td>
                                     
                                     <td class="action" data-title="Remove">
-                                    <form action="{{ route('wishlist.destroy',$item->id) }}" method="post" id="deleteItem">
+                                    <form action="{{ route('wishlist.destroy',$item->id) }}" method="post">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-small ms-5"><i class="fi-rs-trash"></i></button>
+                                        <button type="submit" class="btn btn-small ms-5 delete-item"><i class="fi-rs-trash"></i></button>
                                     </form>
                                 </td>
                                 </tr>

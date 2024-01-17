@@ -8,17 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     use HasFactory;
-    private static $brand, $image, $imageName, $directory, $imageUrl;
-
-    private static function getImageUrl($request)
-    {
-        self::$image        = $request->file('image');
-        self::$imageName    = self::$image->getClientOriginalName();
-        self::$directory    = "upload/brand-images/";
-        self::$image->move(self::$directory, self::$imageName);
-        self::$imageUrl     = self::$directory.self::$imageName;
-        return self::$imageUrl;
-    }
+    private static $brand, $image,$imageUrl;
 
     public static function newBrand($request)
     {
@@ -29,7 +19,7 @@ class Brand extends Model
 //            self::$imageUrl = ' ';
 //        }
 
-        self::$imageUrl = $request->file('image') ? self::getImageUrl($request) : ' ';
+        self::$imageUrl = $request->file('image') ? imageUpload($request->file('image'),'upload/brand-imags/') : ' ';
 
         self::$brand = new Brand();
         self::saveBasicInfo(self::$brand,$request,self::$imageUrl);
@@ -43,7 +33,7 @@ class Brand extends Model
             {
                 unlink($brand->image);
             }
-            self::$imageUrl =self::getImageUrl($request);
+            self::$imageUrl =imageUpload($request->file('image'),'upload/brand-images/');
         }else{
             self::$imageUrl = $brand->image;
         }

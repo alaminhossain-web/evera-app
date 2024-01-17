@@ -30,7 +30,7 @@ class WishlistController extends Controller
            $this->wishlist= Wishlist::where('customer_id',Session::get('customer_id'))->where('product_id',$request->id)->first();
             if($this->wishlist)
                 {
-                    return back()->with('message','Already Added ...');
+                    return back()->with('update','Already Added ...');
                 }
             Wishlist::newWishlist($this->customer,$request);
             return redirect('/wishlist')->with('message',' Successfully Add..');
@@ -88,6 +88,6 @@ class WishlistController extends Controller
     public function destroy(Wishlist $wishlist)
     {
         Wishlist::deleteWishlist($wishlist);
-        return back()->with('message','Wishlist Deleted Successfully');
+        return back()->with('error','Wishlist Deleted Successfully');
     }
 }

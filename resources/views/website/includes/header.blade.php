@@ -158,7 +158,7 @@
     </div>
 </div>
 
-<header class="header-area header-style-1 header-height-2">
+<header class="header-area">
     <div class="header-top header-top-ptb-1 d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center">
@@ -210,7 +210,7 @@
             </div>
         </div>
     </div>
-    <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+    <div class="header-middle header-middle-ptb-1 d-none d-lg-block sticky-bar">
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
@@ -220,17 +220,11 @@
                     <div class="search-style-2">
                         <form action="#">
                             <select class="select-active">
-                                <option>All Categories</option>
-                                <option>Women's</option>
-                                <option>Men's</option>
-                                <option>Cellphones</option>
-                                <option>Computer</option>
-                                <option>Electronics</option>
-                                <option> Accessories</option>
-                                <option>Home & Garden</option>
-                                <option>Luggage</option>
-                                <option>Shoes</option>
-                                <option>Mother & Kids</option>
+                                <option>All Categories </option>
+                                @foreach($categories as $category)
+                                <option>{{$category->name}}</option>
+                                @endforeach
+                                
                             </select>
                             <input type="text" placeholder="Search for items...">
                         </form>
@@ -284,7 +278,7 @@
             </div>
         </div>
     </div>
-    <div class="header-bottom header-bottom-bg-color sticky-bar">
+    <div class="header-bottom header-bottom-bg-color">
         <div class="container">
             <div class="header-wrap header-space-between position-relative">
                 <div class="logo logo-width-1 d-block d-lg-none">
@@ -310,7 +304,7 @@
                                                             <ul>
                                                                 <li><span class="submenu-title">Hot & Trending</span></li>
                                                                 @foreach($category->subCategory as $subCategory)
-                                                                <li><a class="dropdown-item nav-link nav_item" href="#">{{ $subCategory->name }}</a></li>
+                                                                <li><a class="dropdown-item nav-link nav_item" href="{{route('product-sub-category',['id'=> $subCategory->id])}}">{{ $subCategory->name }}</a></li>
                                                                 @endforeach
                                                             </ul>
                                                         </li>

@@ -9,7 +9,9 @@
             <div class="breadcrumb">
                 <a href="index-2.html" rel="nofollow">Home</a>
                 <span></span> 
-                    {{ $category->name }}
+                    {{ isset($category->id) ? $category->name : '' }}
+                    {{ isset($subCategory->id) ? $subCategory->name : '' }}
+
                
             </div>
         </div>

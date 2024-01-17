@@ -38,7 +38,7 @@ class CheckoutController extends Controller
 
         OrderDetail::newOrderDetail($this->order);
         
-        return redirect('/complete-order')->with('message','Congratulation...Your order post successfully.Please check your email and wait we will contact with you soon.');
+        return redirect('/complete-order')->with('success','Congratulation...Your order post successfully.Please check your email and wait we will contact with you soon.');
     }
     public function completeOrder()
     {
